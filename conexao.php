@@ -2,11 +2,16 @@
 
 $usuario = "root";
 $senha = '';
-$database = 'cadastro';
+$db = 'cadastro';
 $host = 'localhost';
 
-$mysqli = new mysqli($host, $usuario, $senha, $database);
+$conn = new PDO("mysql:host={$host};dbname={$db}", $usuario, $senha);
 
-if ($mysqli->error) {
-    die("Falha ao conectar com o banco: " . $mysqli->error);
-}
+$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+// function formatar_data($data)
+// {
+//     return implode('/', array_reverse(explode('-', $data)));
+// }
+

@@ -1,23 +1,18 @@
 (() => {
     let form = document.querySelector("form");
-    let name = document.querySelector("form #name");
-    let lastName = document.querySelector("form #lastName");
+    let name = document.querySelector("form #nome");
     let email = document.querySelector(" form #email ");
-    let cpf = document.querySelector("form #cpf");
     let phone = document.querySelector("form #phone");
     let celPhone = document.querySelector("form #celPhone");
     let password = document.querySelector("form #password");
     let confirmPassword = document.querySelector("form #confirmPassword");
-    let terms = document.querySelector("form #terms");
-    let buttonSubmit = document.querySelector("form #btnSend");
+    // let buttonSubmit = document.querySelector("form #btnSend");
     let elements = form.getElementsByClassName("need-validate");
     let btnPassword = document.querySelector("#btn-password");
     let btnConfirm = document.querySelector("#btn-confirm");
   
     function validation() {
       validCamp(name, nameValidation);
-      validCamp(cpf, cpfValidation);
-      validCamp(lastName, nameValidation);
       validCamp(email, emailValidation);
       validCamp(phone, phoneValidation);
       validCamp(celPhone, phoneValidation);
@@ -78,15 +73,15 @@
       activeButton(terms, buttonSubmit);
     }, 100);
   
-    buttonSubmit.addEventListener("click", () => {
-      console.log(elements.length);
-      if (elements.length > 0) {
-        return false;
-      } else {
-        form.submit();
-        clearInterval(btnActive);
-      }
-    });
+    // buttonSubmit.addEventListener("click", () => {
+    //   console.log(elements.length);
+    //   if (elements.length > 0) {
+    //     return false;
+    //   } else {
+    //     form.submit();
+    //     clearInterval(btnActive);
+    //   }
+    // });
   
     function passwordValidation(password) {
       if (password.value.length < 8) {
@@ -132,37 +127,7 @@
       }
     }
   
-    function cpfValidation(cpf) {
-      cpf = cpf.value;
-      cpf = cpf.replace(/[^\d]+/g, "");
-      if (cpf == "") return false;
-      if (
-        cpf.length != 11 ||
-        cpf == "00000000000" ||
-        cpf == "11111111111" ||
-        cpf == "22222222222" ||
-        cpf == "33333333333" ||
-        cpf == "44444444444" ||
-        cpf == "55555555555" ||
-        cpf == "66666666666" ||
-        cpf == "77777777777" ||
-        cpf == "88888888888" ||
-        cpf == "99999999999"
-      )
-        return false;
-      add = 0;
-      for (i = 0; i < 9; i++) add += parseInt(cpf.charAt(i)) * (10 - i);
-      rev = 11 - (add % 11);
-      if (rev == 10 || rev == 11) rev = 0;
-      if (rev != parseInt(cpf.charAt(9))) return false;
-      add = 0;
-      for (i = 0; i < 10; i++) add += parseInt(cpf.charAt(i)) * (11 - i);
-      rev = 11 - (add % 11);
-      if (rev == 10 || rev == 11) rev = 0;
-      if (rev != parseInt(cpf.charAt(10))) return false;
-      return true;
-    }
-  
+    
     function validCamp(obj, func) {
       obj.addEventListener("blur", () => {
         setClassValidation(obj, () => func(obj));
@@ -204,24 +169,11 @@
     }
   }
   
-  function cpfMask() {
-    if (cpf.value.length > 2 && cpf.value.length <= 3) {
-      cpf.value = `${cpf.value}.`;
-    } else if (cpf.value.length > 6 && cpf.value.length <= 7) {
-      cpf.value = `${cpf.value}.`;
-    } else if (cpf.value.length > 10 && cpf.value.length <= 11) {
-      cpf.value = `${cpf.value}-`;
-    }
-  }
   
   phone.addEventListener("keypress", () => {
     phoneMask(phone);
   });
   celPhone.addEventListener("keypress", () => {
     CelphoneMask(celPhone);
-  });
-  
-  cpf.addEventListener("keypress", () => {
-    cpfMask(cpf);
   });
   
